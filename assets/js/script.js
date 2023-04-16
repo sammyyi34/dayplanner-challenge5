@@ -60,12 +60,13 @@ $(function () {
 
   function printHourPlans () {
     var hourPlan = getFromLocal();
-    for (var j = 0; j < hourPlan.length; j+=1) {
-      var timeOfDay = hourPlan[j].time;
-      var userInput = hourPlan[j].text;
+    for (var i = 0; i < hourPlan.length; i+=1) {
+      var timeOfDay = hourPlan[i].time;
+      var userInput = hourPlan[i].text;
       
       // find the textarea with the corresponding timeOfDay
-      var textareaEl = document.querySelector(`#${timeOfDay} textarea`);
+      var textareaEl = document.getElementById(timeOfDay).querySelector('textarea');
+
       
       // set the value of the textarea to the saved user input
       if (textareaEl) {
@@ -81,7 +82,7 @@ $(function () {
     // loop through each time block
     for (var i = 9; i <= 17; i++) {
       // get the time block element based on the ID
-      var timeBlockEl = document.querySelector(`[id="hour-${i}"]`);
+      var timeBlockEl = document.getElementById("hour-" + i);
       // update the class of the time block based on the current time
       if (i < currentHour) {
         timeBlockEl.classList.remove('future');
