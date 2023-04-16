@@ -1,4 +1,4 @@
-git $(function () {
+$(function () {
   var saveBtnEl = document.querySelectorAll('button')
   var textContainer = document.querySelectorAll('textarea')
   var currentDayEl = document.getElementById('currentDay')
