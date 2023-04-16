@@ -1,10 +1,4 @@
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
-
-
-
-$(function () {
+git $(function () {
   var saveBtnEl = document.querySelectorAll('button')
   var textContainer = document.querySelectorAll('textarea')
   var currentDayEl = document.getElementById('currentDay')
@@ -47,8 +41,10 @@ $(function () {
     window.localStorage.setItem('hourPlan', JSON.stringify(hourPlan));
   }
 
+  // retrieves the array of objects from the local storage
   function getFromLocal() {
     var hourPlans = window.localStorage.getItem('hourPlan');
+    // makes sure that hourPlans is an array
     if (hourPlans){
       hourPlans = JSON.parse(hourPlans);
     } else {
@@ -57,18 +53,19 @@ $(function () {
     return hourPlans;
   }
 
-
+  // displays the userInput on timeblock
   function printHourPlans () {
+    // gets the array of object of the userInput from getFromLocal function
     var hourPlan = getFromLocal();
+    // loops through the array to get the time and text of the input
     for (var i = 0; i < hourPlan.length; i+=1) {
       var timeOfDay = hourPlan[i].time;
       var userInput = hourPlan[i].text;
       
-      // find the textarea with the corresponding timeOfDay
+      // finds the textarea with the corresponding timeOfDay
       var textareaEl = document.getElementById(timeOfDay).querySelector('textarea');
 
-      
-      // set the value of the textarea to the saved user input
+      // sets the value of the textarea to the saved user input
       if (textareaEl) {
         textareaEl.value = userInput;
       }
@@ -76,14 +73,15 @@ $(function () {
   }
 
   function updateTimeBlocks() {
-    // get the current hour
+    // gets the current hour
     var currentHour = dayjs().hour();
 
-    // loop through each time block
+    // loops through each time block
     for (var i = 9; i <= 17; i++) {
-      // get the time block element based on the ID
+      // gets the time block element based on the ID
       var timeBlockEl = document.getElementById("hour-" + i);
-      // update the class of the time block based on the current time
+      
+      // updates the class of the time block based on the current time
       if (i < currentHour) {
         timeBlockEl.classList.remove('future');
         timeBlockEl.classList.remove('present');
@@ -99,11 +97,10 @@ $(function () {
       }
     }
   }
+  
   updateTimeBlocks()
-
-
-
   displayTime();
+  
   // used a for loop to target all of the buttons
   for (var i = 0; i < saveBtnEl.length; i++) {
     // added an eventListener to all the buttons with a function
